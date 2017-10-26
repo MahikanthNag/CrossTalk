@@ -7,11 +7,32 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
+  
   "content_security_policy": "script-src 'self' https://www.gstatic.com/firebasejs/4.5.2/firebase.js https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js https://*.firebaseio.com; object-src https://www.gstatic.com/firebasejs/*  'self'",
   "permissions": [
     "activeTab",
     "contextMenus",
     "tabs",
     "<all_urls>"
-  ]
+  ],
+  "commands": {
+		"copy" : {
+			"suggested_key": {
+				 "default": "Ctrl+C" 
+			},
+			"description": "Copy Text"
+		},
+		"cut": {
+			"suggested_key": {
+				"default": "Ctrl+X" 
+			},
+			"description": "Cut Text"
+		},
+		"paste": {
+			"suggested_key": {
+				"default": "Ctrl+V" 
+			},
+			"description": "Paste Text"
+		}
+	}
 }

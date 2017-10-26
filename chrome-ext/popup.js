@@ -29,21 +29,48 @@ var myCtrl = myApp.controller("myCtrl", function ($scope, $http) {
     });
   };
   $scope.takeSnapshot = takeSnapshot;
-
   function syncClipboardToFirebase(data) {
+    alert("data : "+data);
+    console.log("data is "+data);
     const dbRef = firebase.database().ref().child('text');
     dbRef.set(data);
-    firebase.database().ref().child('history').push(text);
+    firebase.database().ref().child('history').push(data);
   }
 
   function sync(info) {
     // can be replaced with crossy server
     syncClipboardToFirebase(info.selectionText);
   }
-
   chrome.contextMenus.create({
     title: 'Cross Talk',
     contexts: ['selection'],
-    onClick: sync
+    onclick: sync
   });
+  chrome.commands.onCommand.addListener(function (command) {
+      var text = "default text";
+
+      if ( ( command === "copy" || command == "cut" ) && window.getSelection() ) {
+        // sync();
+          // text = window.getSelection().toString();
+/*$.post("https://fcm.googleapis.com/fcm/send",
+    {
+        to: "fVOt_YtAB5I:APA91bFAIspwLislsFlBZl5pSzykczay91WbSdXTZWEmbW6ZjhyMHwrfWxBTT8hdPVdlxSjrepsu4hpdBdpZCCm0Q9_OeYmWjSfQnujrrPPJL8z_YknSZWbhWI31DC6WFg7oo46HDdm8",
+        data: {
+          copiedValue: text
+        }
+    },
+    function(data, status){
+        alert("Data of jax: " + data + "\nStatus: " + status);
+    });*/
+          alert("text is "+text);
+          syncClipboardToFirebase(text);
+          alert("After sync");
+          const dbRef = firebase.database().ref().child('text');
+    dbRef.set(text);
+    firebase.database().ref().child('history').push(text);
+      } else {
+          alert("random");
+      }
+});
+  $scope.syncClipboardToFirebase = syncClipboardToFirebase;
 });   
